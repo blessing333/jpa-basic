@@ -1,17 +1,31 @@
 package hellojpa.jpashop.domain;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="Orders")
-public class Order {
+public class Order extends BaseEntity{
     @Id
     @GeneratedValue
     @Column(name="ORDER_ID")
     private long id;
-    private long memberId;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
     private LocalDateTime orderDate;
     @Enumerated(EnumType.STRING)
     OrderStatus status;
@@ -22,14 +36,6 @@ public class Order {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(long memberId) {
-        this.memberId = memberId;
     }
 
     public LocalDateTime getOrderDate() {
