@@ -13,19 +13,20 @@ public class hellojpa {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         try {
-            Member member = new Member();
-            Team team = new Team();
-            team.setName("ATEAM");
-            em.persist(team);
-            member.setName("person");
-            member.setTeam(team);
-            em.persist(member);
+            Parent parent = new Parent();
+            parent.setName("father");
+            Child child = new Child();
+            child.setName("child a");
+            Child child1 = new Child();
+            child1.setName("child2");
 
-            em.flush();
-            em.clear();
+            parent.addChild(child);
+            parent.addChild(child1);
 
-           // Member findMember = em.find(Member.class, member.getId());
-            List<Member> members = em.createQuery("select m from Member m join fetch m.team", Member.class).getResultList();
+//            em.persist(parent);
+//            em.persist(child);
+            em.persist(child1);
+
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
