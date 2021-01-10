@@ -16,7 +16,7 @@ public class Item extends BaseEntity {
     private int price;
     private int stockQuantity;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Category> categoryList = new ArrayList<>();
 
     public long getId() {

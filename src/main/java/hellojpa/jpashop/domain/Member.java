@@ -10,7 +10,7 @@ public class Member extends BaseEntity {
     @GeneratedValue
     @Column(name="MEMBER_ID")
     private long id;
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
     private String name;
     private String city;
