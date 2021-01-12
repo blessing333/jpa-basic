@@ -9,17 +9,19 @@ public class Member {
     private long id;
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+    @Embedded
+    private Address address;
 
-    public Team getTeam() {
-        return team;
-    }
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="city",column = @Column( name ="work_city")),
+            @AttributeOverride(name="street",column = @Column(name="work_street")),
+            @AttributeOverride(name="zipcode",column = @Column(name="work_zipcode"))
+    })
+    private Address workAddress;
 
-    public void setTeam(Team team) {
-        this.team = team;
-    }
+    @Embedded
+    private Period period;
 
     public long getId() {
         return id;
@@ -35,5 +37,21 @@ public class Member {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
     }
 }

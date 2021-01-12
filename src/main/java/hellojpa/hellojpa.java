@@ -13,23 +13,19 @@ public class hellojpa {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         try {
-            Parent parent = new Parent();
-            parent.setName("father");
-            Child child = new Child();
-            child.setName("child a");
-            Child child1 = new Child();
-            child1.setName("child2");
-
-            parent.addChild(child);
-            parent.addChild(child1);
-
-//            em.persist(parent);
-//            em.persist(child);
-            em.persist(child1);
+            Member member = new Member();
+            member.setName("이민재");
+            member.setAddress(new Address("dd","aa","dd"));
+            System.out.println(new Address("bb","aa","dd").equals(new Address("dd","aa","dd")));
+            em.persist(member);
 
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+
+
+
+
         } finally {
             em.close();
         }
